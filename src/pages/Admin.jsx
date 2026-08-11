@@ -35,7 +35,7 @@ function Admin() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'admin123') {
+    if (password === 'salahpassword') {
       setIsAuthenticated(true);
       sessionStorage.setItem('admin_auth', 'true');
       loadAllData();

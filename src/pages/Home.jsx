@@ -129,7 +129,7 @@ function Home() {
             <a href="#services">خدماتي</a>
             <a href="#portfolio">أعمالنا</a>
             <a href="#contact">تواصل معنا</a>
-            <Link to="/admin" style={{ color: 'var(--accent-light)' }}>لوحة التحكم</Link>
+
             <button onClick={toggleTheme} title="تغيير المظهر" style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer', fontSize: '1.2rem', marginRight: '1rem' }}>
               {theme === 'dark' ? <FaSun /> : <FaMoon />}
             </button>
@@ -306,10 +306,7 @@ function Home() {
               </a>
             </div>
             <div className="social-links" style={{ marginTop: '0' }}>
-              <a href="https://www.facebook.com/salahinfo19" target="_blank" rel="noopener noreferrer" className="social-link" title="Facebook"><FaFacebook size={24} /></a>
-              <a href="#" className="social-link" title="GitHub"><FaGithub size={24} /></a>
-              <a href="#" className="social-link" title="LinkedIn"><FaLinkedin size={24} /></a>
-              <a href="#" className="social-link" title="Twitter"><FaTwitter size={24} /></a>
+              <a href="https://www.facebook.com/profile.php?id=61585974989988" target="_blank" rel="noopener noreferrer" className="social-link" title="Facebook"><FaFacebook size={24} /></a>
             </div>
           </div>
         </div>
