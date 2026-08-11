@@ -472,3 +472,24 @@ export const deleteRequest = async (id) => {
     console.error('Error deleting request:', error);
   }
 };
+
+export const recordVisit = async () => {
+  if (!sessionStorage.getItem('has_visited')) {
+    try {
+      await fetch('/api/visits', { method: 'POST' });
+      sessionStorage.setItem('has_visited', 'true');
+    } catch (err) {
+      console.error('Error recording visit:', err);
+    }
+  }
+};
+
+export const getVisits = async () => {
+  try {
+    const res = await fetch('/api/visits');
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching visits:', err);
+    return [];
+  }
+};

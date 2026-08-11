@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProjects, saveProjects, getCourses, saveCourses, getStats, saveStats, getTestimonials, saveTestimonials, getRequests, deleteRequest } from '../data';
+import { getProjects, saveProjects, getCourses, saveCourses, getStats, saveStats, getTestimonials, saveTestimonials, getRequests, deleteRequest, getVisits } from '../data';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
@@ -13,6 +13,7 @@ function Admin() {
   const [stats, setStats] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [requests, setRequests] = useState([]);
+  const [visits, setVisits] = useState([]);
   
   const [formData, setFormData] = useState({ id: null, title: '', image: '', link: '', tags: '', description: '', value: '', name: '', role: '', text: '' });
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +32,8 @@ function Admin() {
     setTestimonials(getTestimonials());
     const reqs = await getRequests();
     setRequests(reqs);
+    const vs = await getVisits();
+    setVisits(vs);
   };
 
   const handleLogin = (e) => {
@@ -171,6 +174,7 @@ function Admin() {
   else if (activeTab === 'stats') currentItems = stats;
   else if (activeTab === 'testimonials') currentItems = testimonials;
   else if (activeTab === 'requests') currentItems = requests;
+  else if (activeTab === 'visits') currentItems = visits;
 
   return (
     <div style={{ padding: '2rem', minHeight: '100vh', direction: 'rtl' }}>
@@ -190,12 +194,13 @@ function Admin() {
         <button onClick={() => handleTabSwitch('courses')} className={`btn ${activeTab === 'courses' ? 'btn-primary' : 'btn-outline'}`}>الدورات</button>
         <button onClick={() => handleTabSwitch('stats')} className={`btn ${activeTab === 'stats' ? 'btn-primary' : 'btn-outline'}`}>الإحصائيات</button>
         <button onClick={() => handleTabSwitch('testimonials')} className={`btn ${activeTab === 'testimonials' ? 'btn-primary' : 'btn-outline'}`}>آراء العملاء</button>
+        <button onClick={() => handleTabSwitch('visits')} className={`btn ${activeTab === 'visits' ? 'btn-primary' : 'btn-outline'}`}>سجل الزوار</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: activeTab === 'requests' ? '1fr' : '1fr 2fr', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: activeTab === 'requests' || activeTab === 'visits' ? '1fr' : '1fr 2fr', gap: '2rem' }}>
         
-        {/* Form - Only show if not in requests tab */}
-        {activeTab !== 'requests' && (
+        {/* Form - Only show if not in requests or visits tab */}
+        {(activeTab !== 'requests' && activeTab !== 'visits') && (
           <div className="glass" style={{ padding: '2rem', height: 'fit-content' }}>
             <h3>{isEditing ? 'تعديل' : 'إضافة'} بيانات</h3>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
@@ -275,7 +280,7 @@ function Admin() {
           <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             
             {/* Standard Items Render (Projects, Courses, Stats, Testimonials) */}
-            {activeTab !== 'requests' && currentItems.map(item => (
+            {(activeTab !== 'requests' && activeTab !== 'visits') && currentItems.map(item => (
               <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   {activeTab !== 'stats' && (
@@ -333,8 +338,29 @@ function Admin() {
                 </div>
               </div>
             ))}
+            {/* Visits List Render */}
+            {activeTab === 'visits' && (
+              <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px' }}>
+                <table style={{ width: '100%', textAlign: 'right', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                      <th style={{ padding: '1rem' }}>التاريخ</th>
+                      <th style={{ padding: '1rem' }}>عدد الزيارات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentItems.map((visit, index) => (
+                      <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                        <td style={{ padding: '1rem' }}>{visit.date}</td>
+                        <td style={{ padding: '1rem', color: 'var(--accent-light)', fontWeight: 'bold' }}>{visit.count} زائر</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
-            {currentItems.length === 0 && <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>لا توجد بيانات أو طلبات لعرضها.</p>}
+            {currentItems.length === 0 && <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>لا توجد بيانات لعرضها.</p>}
           </div>
         </div>
       </div>

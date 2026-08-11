@@ -41,7 +41,12 @@ const initDb = async () => {
         courseTitle VARCHAR(255),
         attendanceType VARCHAR(100),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
+      );
+      
+      CREATE TABLE IF NOT EXISTS visits (
+        visit_date DATE PRIMARY KEY,
+        count INT DEFAULT 0
+      );
     `);
     console.log("Database initialized successfully.");
     client.release();
@@ -121,6 +126,32 @@ app.delete('/api/requests/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query('DELETE FROM requests WHERE req_id = $1', [id]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/api/visits', async (req, res) => {
+  try {
+    const result = await pool.query("SELECT TO_CHAR(visit_date, 'YYYY-MM-DD') as date, count FROM visits ORDER BY visit_date DESC LIMIT 30");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/api/visits', async (req, res) => {
+  try {
+    const query = `
+      INSERT INTO visits (visit_date, count) 
+      VALUES (CURRENT_DATE, 1) 
+      ON CONFLICT (visit_date) 
+      DO UPDATE SET count = visits.count + 1
+    `;
+    await pool.query(query);
     res.json({ success: true });
   } catch (err) {
     console.error(err);

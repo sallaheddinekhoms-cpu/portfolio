@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Code, Smartphone, Monitor } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaWhatsapp, FaTelegram, FaFacebook, FaGraduationCap, FaSun, FaMoon, FaQuoteRight, FaInfoCircle } from 'react-icons/fa';
-import { getProjects, getCourses, getStats, getTestimonials, getRequests, addRequest } from '../data';
+import { getProjects, getCourses, getStats, getTestimonials, getRequests, addRequest, recordVisit } from '../data';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -23,6 +23,7 @@ function Home() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    recordVisit();
     localStorage.setItem('theme', theme);
   }, [theme]);
 
