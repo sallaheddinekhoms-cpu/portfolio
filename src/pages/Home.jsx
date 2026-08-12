@@ -342,12 +342,12 @@ function Home() {
 
       {/* Modal for Project Details */}
       {selectedProject && (
-        <div onClick={() => setSelectedProject(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', direction: 'rtl' }}>
+        <div onClick={() => setSelectedProject(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', direction: 'rtl' }}>
           <div className="glass" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px', width: '100%', maxHeight: '90vh', overflowY: 'auto', background: 'var(--primary-color)', borderRadius: '16px', position: 'relative' }}>
             <button onClick={() => setSelectedProject(null)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', border: 'none', color: 'white', width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer', fontSize: '1.2rem', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
-            <img src={selectedProject.image} alt={selectedProject.title} style={{ width: '100%', height: '350px', objectFit: 'cover', borderTopLeftRadius: '16px', borderTopRightRadius: '16px' }} />
-            <div style={{ padding: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', margin: '0 0 1rem 0' }}>{selectedProject.title}</h2>
+            <img src={selectedProject.image} alt={selectedProject.title} style={{ width: '100%', height: '250px', objectFit: 'cover', borderTopLeftRadius: '16px', borderTopRightRadius: '16px' }} />
+            <div style={{ padding: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.5rem', margin: '0 0 1rem 0' }}>{selectedProject.title}</h2>
               <div className="portfolio-tags" style={{ margin: '1rem 0', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                 {selectedProject.tags?.map((tag, i) => <span key={i} style={{ background: 'rgba(59, 130, 246, 0.2)', padding: '0.4rem 1rem', borderRadius: '30px' }}>{tag}</span>)}
               </div>
