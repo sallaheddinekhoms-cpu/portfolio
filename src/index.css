@@ -34,13 +34,17 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   font-family: var(--font-main);
   background: var(--bg-gradient);
   color: var(--text-main);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: hidden;
   direction: rtl; /* Arabic support */
 }
 
@@ -251,6 +255,7 @@ section {
   position: absolute;
   width: 450px;
   height: 450px;
+  max-width: 100%;
   background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(30,27,75,0) 70%);
   z-index: 1;
   border-radius: 50%;
@@ -477,6 +482,10 @@ footer {
 }
 
 @media (max-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
   .hero-content h1 {
     font-size: 2.5rem;
   }
