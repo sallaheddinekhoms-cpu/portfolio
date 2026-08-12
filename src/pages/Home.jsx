@@ -185,7 +185,7 @@ function Home() {
           <h2 className="section-title">نبذة <span>عني</span></h2>
           <div className="glass" style={{ padding: '3rem', maxWidth: '900px', margin: '0 auto', marginBottom: '3rem', display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
             <div style={{ flex: '1 1 250px', textAlign: 'center' }}>
-              <img src="/assets/profile.jpg" alt="خمس صلاح الدين" style={{ width: '100%', maxWidth: '250px', borderRadius: '16px', objectFit: 'cover', border: '4px solid var(--accent-color)', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }} />
+              <img src="/assets/profile.png" alt="خمس صلاح الدين" style={{ width: '100%', maxWidth: '250px', borderRadius: '16px', objectFit: 'cover', border: '4px solid var(--accent-color)', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }} />
             </div>
             <div style={{ flex: '2 1 400px' }}>
               <h3 style={{ fontSize: '1.8rem', marginBottom: '1rem', color: 'var(--text-main)' }}>أنا خمس صلاح الدين</h3>
