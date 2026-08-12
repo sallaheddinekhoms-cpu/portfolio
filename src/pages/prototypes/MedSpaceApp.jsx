@@ -20,10 +20,33 @@ export default function MedSpaceApp() {
   const [selectedAns, setSelectedAns] = useState(null);
 
   return (
-    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'ltr', display: 'flex' }}>
+    <div className="medspace-container" style={{ backgroundColor: '#f8fafc', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'ltr' }}>
+      <style>{`
+        .medspace-container { display: flex; flex-direction: row; }
+        .medspace-sidebar { width: 260px; border-right: 1px solid #e2e8f0; }
+        .medspace-courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .medspace-topbar { height: 80px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .medspace-search { width: 400px; }
+        .medspace-banner { display: flex; justify-content: space-between; align-items: center; }
+        .medspace-lesson { display: flex; justify-content: space-between; align-items: center; }
+        
+        @media (max-width: 992px) {
+          .medspace-courses { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+          .medspace-container { flex-direction: column; }
+          .medspace-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #e2e8f0; }
+          .medspace-courses { grid-template-columns: 1fr; }
+          .medspace-topbar { flex-direction: column; height: auto; gap: 15px; padding: 20px; }
+          .medspace-search { width: 100%; }
+          .medspace-banner { flex-direction: column; text-align: center; gap: 20px; }
+          .medspace-lesson { flex-direction: column; gap: 15px; align-items: flex-start; }
+          .medspace-lesson svg { align-self: flex-end; }
+        }
+      `}</style>
       
       {/* Sidebar */}
-      <div style={{ width: '260px', backgroundColor: '#ffffff', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+      <div className="medspace-sidebar" style={{ backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '25px 20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
           <div style={{ width: '45px', height: '45px', background: 'linear-gradient(135deg, #10b981, #059669)', borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
             <Activity size={24} />
@@ -54,8 +77,8 @@ export default function MedSpaceApp() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         
         {/* Top Navbar */}
-        <div style={{ height: '80px', backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 40px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f8fafc', padding: '10px 15px', borderRadius: '12px', width: '400px' }}>
+        <div className="medspace-topbar" style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
+          <div className="medspace-search" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f8fafc', padding: '10px 15px', borderRadius: '12px' }}>
             <Search size={18} color="#94a3b8" style={{ marginRight: '10px' }} />
             <input type="text" placeholder="Rechercher des cours, des leçons..." style={{ border: 'none', background: 'transparent', outline: 'none', padding: '0 10px', width: '100%' }} />
           </div>
@@ -78,11 +101,11 @@ export default function MedSpaceApp() {
           
           {activeView === 'dashboard' && (
             <>
-              <div style={{ backgroundColor: '#10b981', borderRadius: '24px', padding: '40px', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px', boxShadow: '0 20px 25px -5px rgba(16, 185, 129, 0.2)' }}>
+              <div className="medspace-banner" style={{ backgroundColor: '#10b981', borderRadius: '24px', padding: '40px', color: 'white', marginBottom: '40px', boxShadow: '0 20px 25px -5px rgba(16, 185, 129, 0.2)' }}>
                 <div>
                   <h1 style={{ fontSize: '2.5rem', margin: '0 0 10px 0', fontWeight: '800' }}>Ravi de vous revoir ! 👋</h1>
                   <p style={{ fontSize: '1.2rem', margin: '0 0 20px 0', opacity: 0.9 }}>Vous progressez bien, continuez votre apprentissage en Anatomie aujourd'hui.</p>
-                  <button onClick={() => { setActiveView('course'); setActiveCourse(courses[0]); }} style={{ backgroundColor: 'white', color: '#059669', border: 'none', padding: '12px 25px', borderRadius: '30px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <button onClick={() => { setActiveView('course'); setActiveCourse(courses[0]); }} style={{ backgroundColor: 'white', color: '#059669', border: 'none', padding: '12px 25px', borderRadius: '30px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', margin: '0 auto' }}>
                     <PlayCircle size={20} /> Reprendre le cours
                   </button>
                 </div>
@@ -94,7 +117,7 @@ export default function MedSpaceApp() {
               </div>
 
               <h2 style={{ fontSize: '1.5rem', color: '#1e293b', marginBottom: '20px' }}>Mes Cours</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '25px' }}>
+              <div className="medspace-courses">
                 {courses.map(course => (
                   <div key={course.id} onClick={() => { setActiveView('course'); setActiveCourse(course); }} style={{ backgroundColor: 'white', borderRadius: '20px', padding: '25px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', cursor: 'pointer', transition: 'transform 0.2s', border: '1px solid #f1f5f9' }}>
                     <div style={{ width: '50px', height: '50px', backgroundColor: `${course.color}15`, borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: course.color, marginBottom: '20px' }}>
@@ -135,9 +158,9 @@ export default function MedSpaceApp() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {[1, 2, 3, 4].map(lesson => (
-                  <div key={lesson} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' }}>
+                  <div key={lesson} className="medspace-lesson" style={{ backgroundColor: 'white', padding: '20px', borderRadius: '16px', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid #f1f5f9' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                      <div style={{ width: '40px', height: '40px', backgroundColor: lesson === 1 ? '#10b981' : '#f1f5f9', color: lesson === 1 ? 'white' : '#94a3b8', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <div style={{ width: '40px', height: '40px', backgroundColor: lesson === 1 ? '#10b981' : '#f1f5f9', color: lesson === 1 ? 'white' : '#94a3b8', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
                         {lesson === 1 ? <CheckCircle size={20} /> : lesson}
                       </div>
                       <div>
@@ -145,7 +168,7 @@ export default function MedSpaceApp() {
                         <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.9rem' }}>45 minutes • Vidéo + PDF</p>
                       </div>
                     </div>
-                    <PlayCircle size={30} color={lesson === 2 ? activeCourse.color : '#cbd5e1'} style={{ cursor: 'pointer' }} />
+                    <PlayCircle size={30} color={lesson === 2 ? activeCourse.color : '#cbd5e1'} style={{ cursor: 'pointer', flexShrink: 0 }} />
                   </div>
                 ))}
               </div>
