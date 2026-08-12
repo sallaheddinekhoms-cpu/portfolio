@@ -125,7 +125,7 @@ function Home() {
             <img src="/assets/logo.jpg" alt="KhoMs Tech Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>KhoMs <span>Tech</span></div>
           </div>
-          <div className="nav-links" style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="nav-links">
             <a href="#home">الرئيسية</a>
             <a href="#about">عني</a>
             <a href="#services">خدماتي</a>
