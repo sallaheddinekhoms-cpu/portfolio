@@ -21,10 +21,27 @@ export default function BMStockingApp() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'rtl', color: '#f3f4f6', display: 'flex' }}>
+    <div className="bms-container" style={{ backgroundColor: '#111827', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'rtl', color: '#f3f4f6' }}>
+      <style>{`
+        .bms-container { display: flex; flex-direction: row; }
+        .bms-sidebar { width: 250px; border-left: 1px solid #374151; }
+        .bms-topbar { height: 70px; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
+        .bms-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        
+        @media (max-width: 1200px) {
+          .bms-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+          .bms-container { flex-direction: column; }
+          .bms-sidebar { width: 100%; border-left: none; border-bottom: 1px solid #374151; }
+          .bms-stats { grid-template-columns: 1fr; }
+          .bms-topbar { flex-direction: column; height: auto; gap: 15px; padding: 20px; align-items: stretch; }
+          .bms-table-container { overflow-x: auto; }
+        }
+      `}</style>
       
       {/* Sidebar */}
-      <div style={{ width: '250px', backgroundColor: '#1f2937', borderLeft: '1px solid #374151', display: 'flex', flexDirection: 'column' }}>
+      <div className="bms-sidebar" style={{ backgroundColor: '#1f2937', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '15px', borderBottom: '1px solid #374151', marginBottom: '20px' }}>
           <div style={{ backgroundColor: '#3b82f6', padding: '10px', borderRadius: '10px' }}>
             <Package size={24} color="white" />
@@ -59,9 +76,9 @@ export default function BMStockingApp() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
         
         {/* Header */}
-        <div style={{ height: '70px', backgroundColor: '#1f2937', borderBottom: '1px solid #374151', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 30px' }}>
+        <div className="bms-topbar" style={{ backgroundColor: '#1f2937', borderBottom: '1px solid #374151' }}>
           <h1 style={{ fontSize: '1.4rem', margin: 0, fontWeight: 'bold' }}>
-            {activeMenu === 'dashboard' ? 'نظرة عامة على المستودع' : 'إدارة المنتجات والمخزون'}
+            {activeMenu === 'dashboard' ? 'لوحة تحكم النظام' : 'إدارة المخزون والمنتجات'}
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#111827', borderRadius: '8px', padding: '8px 15px', border: '1px solid #374151' }}>
@@ -76,7 +93,7 @@ export default function BMStockingApp() {
           {activeMenu === 'dashboard' ? (
             <>
               {/* Stats Row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '25px', marginBottom: '40px' }}>
+              <div className="bms-stats" style={{ marginBottom: '40px' }}>
                 {stats.map((stat, i) => (
                   <div key={i} style={{ backgroundColor: '#1f2937', padding: '25px', borderRadius: '16px', border: '1px solid #374151', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div>

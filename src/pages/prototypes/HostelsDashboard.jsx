@@ -35,10 +35,31 @@ export default function HostelsDashboard() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#f0f9ff', minHeight: '100vh', display: 'flex', fontFamily: 'sans-serif', direction: 'rtl' }}>
+    <div className="hostels-container" style={{ backgroundColor: '#f0f9ff', minHeight: '100vh', display: 'flex', fontFamily: 'sans-serif', direction: 'rtl' }}>
+      <style>{`
+        .hostels-container { flex-direction: row; }
+        .hostels-sidebar { width: 280px; border-left: 1px solid #e0f2fe; z-index: 10; box-shadow: 2px 0 10px rgba(0,0,0,0.02); }
+        .hostels-topbar { height: 80px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .hostels-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .hostels-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .hostels-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .hostels-search { width: 400px; }
+        
+        @media (max-width: 1200px) {
+          .hostels-stats { grid-template-columns: repeat(2, 1fr); }
+          .hostels-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+          .hostels-container { flex-direction: column; }
+          .hostels-sidebar { width: 100%; border-left: none; border-bottom: 1px solid #e0f2fe; }
+          .hostels-stats { grid-template-columns: 1fr; }
+          .hostels-topbar { flex-direction: column; height: auto; gap: 15px; padding: 20px; align-items: stretch; }
+          .hostels-search { width: 100%; }
+        }
+      `}</style>
       
       {/* Sidebar */}
-      <div style={{ width: '280px', backgroundColor: '#ffffff', borderLeft: '1px solid #e0f2fe', display: 'flex', flexDirection: 'column', padding: '20px 0', zIndex: 10, boxShadow: '2px 0 10px rgba(0,0,0,0.02)' }}>
+      <div className="hostels-sidebar" style={{ backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column', padding: '20px 0' }}>
         <div style={{ padding: '0 20px', marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '40px', height: '40px', backgroundColor: '#3b82f6', borderRadius: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
             YH
@@ -72,29 +93,28 @@ export default function HostelsDashboard() {
       {/* Main Content */}
       <div style={{ flex: 1, padding: '30px', overflowY: 'auto' }}>
         
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-          <h1 style={{ fontSize: '1.8rem', margin: 0, color: '#0f172a' }}>
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        
+        {/* Top Navbar */}
+        <div className="hostels-topbar" style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e0f2fe' }}>
+          <h1 style={{ fontSize: '1.5rem', margin: 0, color: '#0f172a' }}>
             {activeTab === 'dashboard' && 'لوحة القيادة (نظرة عامة)'}
             {activeTab === 'rooms' && 'إدارة الغرف'}
             {activeTab === 'guests' && 'سجل النزلاء'}
           </h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#ffffff', borderRadius: '10px', padding: '8px 15px', border: '1px solid #e2e8f0' }}>
-              <Search size={18} color="#94a3b8" />
-              <input type="text" placeholder="بحث سريع..." style={{ border: 'none', background: 'transparent', outline: 'none', padding: '0 10px', width: '250px' }} />
-            </div>
+          <div className="hostels-search" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f0f9ff', padding: '10px 15px', borderRadius: '10px' }}>
+            <Search size={18} color="#94a3b8" style={{ marginLeft: '10px' }} />
+            <input type="text" placeholder="بحث عن حجز، نزيل، غرفة..." style={{ border: 'none', background: 'transparent', outline: 'none', padding: '0 10px', width: '100%' }} />
+          </div>
             <button style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', position: 'relative' }}>
               <Bell size={20} color="#64748b" />
               <span style={{ position: 'absolute', top: '8px', right: '10px', width: '8px', height: '8px', backgroundColor: '#ef4444', borderRadius: '50%' }}></span>
             </button>
-          </div>
-        </div>
 
         {/* Dashboard View */}
         {activeTab === 'dashboard' && (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
+            <div className="hostels-stats" style={{ marginBottom: '40px' }}>
               {stats.map((stat, i) => (
                 <div key={i} style={{ backgroundColor: '#ffffff', padding: '25px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', display: 'flex', flexDirection: 'column', gap: '10px', borderBottom: `4px solid ${stat.color}` }}>
                   <span style={{ color: '#64748b', fontSize: '1rem', fontWeight: 'bold' }}>{stat.title}</span>
@@ -103,7 +123,7 @@ export default function HostelsDashboard() {
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '30px' }}>
+            <div className="hostels-grid">
               <div style={{ backgroundColor: '#ffffff', padding: '25px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0f172a' }}>أحدث الحجوزات</h3>
@@ -165,7 +185,7 @@ export default function HostelsDashboard() {
                <h3 style={{ margin: 0, fontSize: '1.2rem' }}>الشبكة الحالية للغرف</h3>
                <button style={{ display: 'flex', alignItems: 'center', gap: '5px', backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '8px', cursor: 'pointer' }}><Plus size={16}/> إضافة غرفة</button>
              </div>
-             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
+             <div className="hostels-rooms">
                {roomsData.map((room, i) => (
                  <div key={i} style={{ border: '1px solid #e2e8f0', borderRadius: '12px', padding: '15px', position: 'relative', overflow: 'hidden' }}>
                    <div style={{ position: 'absolute', top: 0, right: 0, width: '4px', height: '100%', backgroundColor: room.status === 'شاغرة' ? '#10b981' : room.status === 'مشغولة' ? '#ef4444' : '#f59e0b' }}></div>

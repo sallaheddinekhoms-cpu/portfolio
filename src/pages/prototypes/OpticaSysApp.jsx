@@ -13,10 +13,28 @@ export default function OpticaSysApp() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#f9fafb', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'rtl', display: 'flex' }}>
+    <div className="optica-container" style={{ backgroundColor: '#f9fafb', minHeight: '100vh', fontFamily: 'sans-serif', direction: 'rtl' }}>
+      <style>{`
+        .optica-container { display: flex; flex-direction: row; }
+        .optica-sidebar { width: 250px; border-left: 1px solid #e5e7eb; }
+        .optica-topbar { height: 80px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .optica-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .optica-grid { display: grid; grid-template-columns: 1fr 350px; gap: 30px; }
+        .optica-table-container { overflow-x: auto; }
+        
+        @media (max-width: 992px) {
+          .optica-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+          .optica-container { flex-direction: column; }
+          .optica-sidebar { width: 100%; border-left: none; border-bottom: 1px solid #e5e7eb; }
+          .optica-topbar { flex-direction: column; height: auto; gap: 15px; padding: 20px; align-items: stretch; }
+          .optica-header { flex-direction: column; gap: 15px; align-items: flex-start; }
+        }
+      `}</style>
       
       {/* Sidebar */}
-      <div style={{ width: '250px', backgroundColor: '#ffffff', borderLeft: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column' }}>
+      <div className="optica-sidebar" style={{ backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '25px', display: 'flex', alignItems: 'center', gap: '15px', borderBottom: '1px solid #f3f4f6', marginBottom: '20px' }}>
           <div style={{ backgroundColor: '#0284c7', padding: '10px', borderRadius: '12px' }}>
             <Eye size={24} color="white" />
@@ -51,10 +69,10 @@ export default function OpticaSysApp() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         
         {/* Header */}
-        <div style={{ height: '80px', backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 40px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', borderRadius: '12px', padding: '10px 15px', width: '350px' }}>
+        <div className="optica-topbar" style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', borderRadius: '12px', padding: '10px 15px', flex: 1, maxWidth: '350px' }}>
             <Search size={18} color="#94a3b8" />
-            <input type="text" placeholder="ابحث عن مريض بالاسم أو الهاتف..." style={{ border: 'none', background: 'transparent', outline: 'none', padding: '0 10px', width: '100%', color: '#334155' }} />
+            <input type="text" placeholder="بحث باسم المريض أو رقم الملف..." style={{ border: 'none', background: 'transparent', outline: 'none', padding: '0 10px', width: '100%', color: '#334155' }} />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ textAlign: 'left' }}>
@@ -72,17 +90,17 @@ export default function OpticaSysApp() {
           
           {activeTab === 'patients' && (
             <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <h1 style={{ fontSize: '1.8rem', color: '#0f172a', margin: 0 }}>إدارة ملفات المرضى</h1>
+              <div className="optica-header">
+                <h1 style={{ fontSize: '1.8rem', color: '#0f172a', margin: 0 }}>سجل المرضى والملفات</h1>
                 <button style={{ backgroundColor: '#0284c7', color: 'white', border: 'none', padding: '12px 25px', borderRadius: '12px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(2, 132, 199, 0.2)' }}>
                   <Plus size={20} /> إضافة مريض جديد
                 </button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '30px' }}>
+              <div className="optica-grid">
                 
                 {/* Patients Table */}
-                <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
+                <div className="optica-table-container" style={{ backgroundColor: '#ffffff', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #f1f5f9' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'right' }}>
                     <thead>
                       <tr style={{ backgroundColor: '#f8fafc', color: '#64748b', fontSize: '0.9rem' }}>
