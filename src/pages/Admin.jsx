@@ -186,7 +186,7 @@ function Admin() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+      <div className="admin-tabs" style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
         <button onClick={() => handleTabSwitch('requests')} className={`btn ${activeTab === 'requests' ? 'btn-primary' : 'btn-outline'}`}>
           الطلبات الواردة <span style={{ background: 'red', color: 'white', borderRadius: '50%', padding: '0.1rem 0.5rem', fontSize: '0.8rem', marginRight: '0.5rem' }}>{requests.length}</span>
         </button>
@@ -197,7 +197,7 @@ function Admin() {
         <button onClick={() => handleTabSwitch('visits')} className={`btn ${activeTab === 'visits' ? 'btn-primary' : 'btn-outline'}`}>سجل الزوار</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: activeTab === 'requests' || activeTab === 'visits' ? '1fr' : '1fr 2fr', gap: '2rem' }}>
+      <div className={`admin-grid ${(activeTab === 'requests' || activeTab === 'visits') ? 'single-column' : ''}`}>
         
         {/* Form - Only show if not in requests or visits tab */}
         {(activeTab !== 'requests' && activeTab !== 'visits') && (

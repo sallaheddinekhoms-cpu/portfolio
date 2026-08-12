@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Code, Smartphone, Monitor } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaWhatsapp, FaTelegram, FaFacebook, FaGraduationCap, FaSun, FaMoon, FaQuoteRight, FaInfoCircle } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaWhatsapp, FaTelegram, FaFacebook, FaGraduationCap, FaSun, FaMoon, FaQuoteRight, FaInfoCircle, FaBars, FaTimes } from 'react-icons/fa';
 import { getProjects, getCourses, getStats, getTestimonials, getRequests, addRequest, recordVisit } from '../data';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ function Home() {
   
   const [selectedProject, setSelectedProject] = useState(null);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Request Modals State
   const [showDevisModal, setShowDevisModal] = useState(false);
@@ -135,7 +136,26 @@ function Home() {
               {theme === 'dark' ? <FaSun /> : <FaMoon />}
             </button>
           </div>
+
+          <button className="mobile-menu-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="mobile-menu">
+            <a href="#home" onClick={() => setMobileMenuOpen(false)}>الرئيسية</a>
+            <a href="#about" onClick={() => setMobileMenuOpen(false)}>عني</a>
+            <a href="#services" onClick={() => setMobileMenuOpen(false)}>خدماتي</a>
+            <a href="#portfolio" onClick={() => setMobileMenuOpen(false)}>أعمالنا</a>
+            <a href="#contact" onClick={() => setMobileMenuOpen(false)}>تواصل معنا</a>
+            <div className="mobile-menu-actions">
+              <button onClick={toggleTheme} title="تغيير المظهر" style={{ background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer', fontSize: '1.2rem' }}>
+                {theme === 'dark' ? <FaSun /> : <FaMoon />}
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
