@@ -160,21 +160,20 @@ function Home() {
 
       {/* Hero Section */}
       <section id="home" className="hero">
-        <div className="blob"></div>
         <div className="container">
           <div className="hero-content">
-            <h2>مرحباً بك في</h2>
-            <h1 style={{ direction: 'ltr' }}>KhoMs <span>Tech</span></h1>
+            <div style={{ marginBottom: '2rem' }}>
+              <img src="/assets/logo.jpg" alt="KhoMs Tech Logo" style={{ width: '120px', height: '120px', borderRadius: '50%', boxShadow: '0 0 40px rgba(0, 229, 255, 0.3)', border: '2px solid rgba(0, 229, 255, 0.5)' }} />
+            </div>
+            <h2 style={{ display: 'block', width: '100%' }}>مرحباً بك في</h2>
+            <h1 style={{ display: 'block', width: '100%', direction: 'ltr' }}>KhoMs <span>Tech</span></h1>
             <p>
               استوديو تطوير برمجيات احترافي متخصص في بناء تطبيقات الويب، الهواتف الذكية، وتطبيقات سطح المكتب. نُحول الأفكار المعقدة إلى تجارب رقمية بسيطة، تفاعلية، وجذابة باستخدام أحدث التقنيات.
             </p>
-            <div className="hero-buttons">
+            <div className="hero-buttons" style={{ display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button onClick={() => setShowDevisModal(true)} className="btn btn-primary" style={{ fontSize: '1.1rem' }}>اطلب تسعيرة مشروعك</button>
-              <a href="#portfolio" className="btn btn-outline">شاهد أعمالنا</a>
+              <a href="#portfolio" className="btn btn-outline" style={{ fontSize: '1.1rem', margin: 0 }}>شاهد أعمالنا</a>
             </div>
-          </div>
-          <div className="hero-image">
-            <img src="/assets/logo.jpg" alt="KhoMs Tech Logo" style={{ borderRadius: '50%', boxShadow: '0 0 40px rgba(59, 130, 246, 0.5)' }} />
           </div>
         </div>
       </section>
@@ -280,7 +279,7 @@ function Home() {
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
                 <img src={course.image} alt={course.title} style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
-                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1, backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ color: 'var(--accent-light)', marginBottom: '0.8rem', fontSize: '1.25rem', lineHeight: '1.4' }}>{course.title}</h3>
                     <p style={{ fontSize: '0.95rem', color: 'var(--text-main)', margin: 0, lineHeight: '1.6' }}>{course.description}</p>

@@ -1,27 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Cairo:wght@400;600;800&display=swap');
 
 :root {
-  --primary-color: #0f172a;
-  --secondary-color: #1e293b;
-  --accent-color: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-dark: #2563eb;
+  --primary-color: #050b14;
+  --secondary-color: #0a1122;
+  --accent-color: #00e5ff;
+  --accent-light: #00f0ff;
+  --accent-dark: #0099ff;
   --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-muted: #8b9bb4;
+  --bg-gradient: radial-gradient(circle at top right, #0a1122 0%, #03060a 100%);
+  --glass-bg: rgba(10, 17, 34, 0.4);
+  --glass-border: rgba(0, 229, 255, 0.15);
   --font-main: 'Cairo', 'Outfit', sans-serif;
+  --noise-pattern: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');
 }
 
 [data-theme="light"] {
-  --primary-color: #f8fafc;
-  --secondary-color: #f1f5f9;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --primary-color: #f0f4f8;
+  --secondary-color: #ffffff;
+  --text-main: #050b14;
+  --text-muted: #4a5568;
+  --bg-gradient: radial-gradient(circle at top right, #ffffff 0%, #e2e8f0 100%);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 153, 255, 0.2);
 }
 
 * {
@@ -46,6 +47,17 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   direction: rtl; /* Arabic support */
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: var(--noise-pattern);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 a {
@@ -61,10 +73,11 @@ ul {
 /* Glassmorphism utility */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Container */
@@ -145,14 +158,32 @@ section {
 
 .section-title {
   text-align: center;
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 3rem;
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 4rem;
   color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  width: 100%;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent-color);
 }
 
 .section-title span {
-  color: var(--accent-light);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent-color);
 }
 
 /* Hero Section */
@@ -160,42 +191,72 @@ section {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   padding-top: 80px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 .hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
 }
 
 .hero-content h1 span {
-  background: linear-gradient(to right, var(--accent-light), var(--accent-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent-color);
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
 }
 
 .hero-content h2 {
-  font-size: 1.5rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 .hero-content p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
-  margin-bottom: 2rem;
-  max-width: 500px;
+  margin-bottom: 3rem;
+  max-width: 650px;
+  line-height: 1.8;
 }
 
 .btn {
@@ -275,62 +336,106 @@ section {
 /* Services */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
 }
 
 .service-card {
-  padding: 2.5rem 2rem;
-  text-align: center;
-  transition: transform 0.3s ease;
+  padding: 3rem 2rem;
+  text-align: right;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  border-radius: 16px;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: var(--accent-color);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
 }
 
 .service-card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+
+.service-card:hover::before {
+  transform: scaleY(1);
 }
 
 .service-icon {
-  width: 70px;
-  height: 70px;
-  background: rgba(59, 130, 246, 0.1);
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 229, 255, 0.05);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem auto;
-  color: var(--accent-light);
+  margin: 0 0 1.5rem 0;
+  color: var(--accent-color);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  background: var(--accent-color);
+  color: #050b14;
+  box-shadow: 0 0 15px var(--accent-color);
 }
 
 .service-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
+  color: var(--text-main);
+  font-weight: 800;
 }
 
 .service-card p {
   color: var(--text-muted);
+  line-height: 1.7;
 }
 
 /* Portfolio */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
 }
 
 .portfolio-card {
-  overflow: hidden;
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s ease;
+}
+
+.portfolio-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
+  transform: translateY(-5px);
 }
 
 .portfolio-img {
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  filter: grayscale(80%) contrast(120%);
 }
 
 .portfolio-card:hover .portfolio-img {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  filter: grayscale(0%) contrast(100%);
 }
 
 .portfolio-info {
@@ -338,23 +443,28 @@ section {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  padding: 2rem;
+  background: linear-gradient(to top, #050b14 0%, rgba(5, 11, 20, 0.8) 60%, transparent 100%);
+  transform: translateY(20px);
+  opacity: 0.9;
+  transition: all 0.4s ease;
 }
 
 .portfolio-card:hover .portfolio-info {
   transform: translateY(0);
+  opacity: 1;
 }
 
 .portfolio-info h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-main);
+  font-weight: 800;
 }
 
 .portfolio-tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   font-size: 0.8rem;
   color: var(--accent-light);
